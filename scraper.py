@@ -98,16 +98,16 @@ soup = BeautifulSoup(html, 'lxml')
 
 
 #### SCRAPE DATA
-import requests
-# links = soup.find_all('div', attrs = {'class':'fileContainer'})
-# for link in links:
-#     url = link.find('a')['href']
-#     if '.CSV' in url:
-#         csvMth = csvYr = ''
-#         csvMth = link.find('a').text.split('(')[0].strip().split(' - ')[-1][:3]
-#         csvYr = link.find('a').text.split('(')[0].strip()[-4:]
-#         csvMth = convert_mth_strings(csvMth.replace('-', '').strip().upper()[:3])
-#         data.append([csvYr, csvMth, url])
+
+links = soup.find_all('div', attrs = {'class':'fileContainer'})
+for link in links:
+    url = link.find('a')['href']
+    if '.CSV' in url:
+        csvMth = csvYr = ''
+        csvMth = link.find('a').text.split('(')[0].strip().split(' - ')[-1][:3]
+        csvYr = link.find('a').text.split('(')[0].strip()[-4:]
+        csvMth = convert_mth_strings(csvMth.replace('-', '').strip().upper()[:3])
+        data.append([csvYr, csvMth, url])
 archive_urls = soup.find('h2', text=re.compile('Expenditure from previous years')).find_next('p').find_all('a')
 for archive_url in archive_urls:
     html = ''
